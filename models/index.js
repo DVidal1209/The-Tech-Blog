@@ -1,2 +1,4 @@
+const Blog = require("./Blog.js");
+const User = require("./User.js")
 
-module.exports = {  };
+module.exports = { Blog, User };
