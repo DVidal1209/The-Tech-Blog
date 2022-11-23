@@ -1,12 +1,11 @@
 const router = require('express').router();
-const { User } = require('../../../../01-Activities/28-Stu_Mini-Project/Main/models');
 const { Blog } = require('../../models');
 
 // Create new blog
 router.post('/', async (req, res) => {
     try {
         const blogData = await Blog.create({ ...req.body, user_id: req.session.user_id });
-        res.status(200).render('dashboard', {})
+        res.status(200).json(blogData);
     }
     catch (err) {
         req.status(500).json(err);
@@ -19,7 +18,7 @@ router.put('/:id', async (req, res) => {
         const blogData = await Blog.update(
             {comment: req.body.comment},
         )
-        res.status(200).render('dashboard', {})
+        res.status(200).json(blogData)
     }
     catch (err) {
         req.status(500).json(err);
@@ -37,11 +36,11 @@ router.delete('/:id', async (req, res) => {
         });
 
         if (!blogData) {
-            res.status(404).json({ message: 'No project found with this id!' });
+            res.status(404).json({ message: 'No blog found with this id!' });
             return;
         }
 
-        res.status(200).render('dashboard', {});
+        res.status(200).json(blogData);
     }
     catch (err) {
         res.status(500).json(err);
