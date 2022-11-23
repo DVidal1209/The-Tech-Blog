@@ -3,17 +3,14 @@ const { Blog, User, Comment } = require('../models');
 
 router.get('/', async (req, res) => {
   try {
-
+    console.log("Hello world")
     const blogData = await Blog.findAll({
-      include: 
-        {
-          model: User,
-          attributes: 'username',
-        },
+      include: {
+        model: User,
+        attributes: ['username']
+      }
     });
-
     const blogs = blogData.map((blog) => blog.get({ plain: true }));
-
 
     res.render('homepage', { blogs, logged_in: req.session.logged_in })
   }
@@ -23,38 +20,39 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/login', async (req, res) => {
-  if (req.session.logged_in){
+  if (req.session.logged_in) {
     res.redirect('/dashboard');
     return
   }
-    res.render('login')
+  res.render('login')
 })
 
 router.get('/signup', async (req, res) => {
-  if (req.session.logged_in){
+  if (req.session.logged_in) {
     res.redirect('/dashboard');
     return
   }
-    res.render('signup')
+  res.render('signup')
 })
 
 router.get("/blogpost/:id", async (req, res) => {
   try {
-
+    const id = req.params.id;
     // Get blog information including all comments
-    const blogData = await Blog.findByPk({
+    const blogData = await Blog.findByPk(id, {
       include: {
-        model: Comment,
-        include: { model: User, attributes: username}
+        model: Comment
       }
     })
 
-    if(!blogData){
-      res.status(404).json(message= `No blog found under id: ${req.params.id}`)
+    if (!blogData) {
+      res.status(404).json(message = `No blog found under id: ${id}`)
     }
-    // Serializing data
-    const blog = blogData.map((blogInfo) => blogInfo.get({ plain: true }));
 
+    // Serializing data
+    const blog = blogData.get({plain: true})
+
+    console.log(blog);
     res.render('blog', { blog, logged_in: req.session.logged_in })
   }
   catch (err) {
