@@ -26,8 +26,8 @@ router.get('/', withAuth, async (req, res) => {
 
 router.get('/blog/:id', withAuth, async (req, res) => {
     try {
-        req.session.user_id = 1;
         const id = parseInt(req.params.id);
+        console.log("Session ID", req.session.user_id)
         const blogData = await Blog.findByPk(id,{
             include:{
                 model: Comment,
