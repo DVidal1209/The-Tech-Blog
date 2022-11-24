@@ -2,6 +2,21 @@ header, .project:not(:last-child) {
   border-bottom: 1px solid #ccc;
 }
 
+body{
+  background-color: beige;
+}
+
+.brown{
+  background-color: burlywood;
+}
+
+.navbar{
+  margin-top: 1.5%;
+  display: flex;
+  justify-content: space-between;
+  padding:1.5%;
+}
+
 .no-button {
   background: none;
   border: none;
@@ -15,10 +30,4 @@ header, .project:not(:last-child) {
 .no-button:hover {
   color: #065b83;
   text-decoration: underline;
-}
-
-.dollar-amount {
-  color: #056605;
-  font-weight: bold;
-  margin-left: -5px;
 }

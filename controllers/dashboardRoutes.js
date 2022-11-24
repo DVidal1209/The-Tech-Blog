@@ -24,11 +24,26 @@ router.get('/', withAuth, async (req, res) => {
     }
 })
 
-router.get('/blogspot/:id', withAuth, async (req, res) => {
+router.get('/blog/:id', withAuth, async (req, res) => {
     try {
-        const id = req.params.id;
-        const blogData = Blog.findByPk(id)
+        req.session.user_id = 1;
+        const id = parseInt(req.params.id);
+        const blogData = await Blog.findByPk(id,{
+            include:{
+                model: Comment,
+                attributes: ['comment_body'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                },
+            },
+            where: {
+                user_id: req.session.user_id
+            }
+        })
+
         const blog = blogData.get({ plain: true });
+        console.log(blog);
 
         res.status(200).render('userBlog', { blog });
     }

@@ -4,24 +4,27 @@ const { Blog } = require('../../models');
 // Create new blog
 router.post('/', async (req, res) => {
     try {
-        const blogData = await Blog.create({ ...req.body, user_id: req.session.user_id });
+        const blogData = await Blog.create({...req.body, user_id: req.session.user_id});
         res.status(200).json(blogData);
     }
     catch (err) {
-        req.status(500).json(err);
+        res.status(500).json(err);
     }
 })
 
 // Update a blog
 router.put('/:id', async (req, res) => {
     try{
-        const blogData = await Blog.update(
-            {comment: req.body.comment},
-        )
+        const blogData = await Blog.update(req.body,{
+            where: {
+                id: req.params.id,
+                user_id: req.session.user_id
+            }
+        })
         res.status(200).json(blogData)
     }
     catch (err) {
-        req.status(500).json(err);
+        res.status(500).json(err);
     }
 })
 
