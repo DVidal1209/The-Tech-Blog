@@ -1,8 +1,14 @@
-<form id="update-form">
-    <label for="title">Title</label><br>
-    <input type="text" id="title" name="title" value="{{{blog.title}}}">
-    <br><br>
-    <label for="content">Content</label><br>
-    <textarea id="content" name="content">{{{blog.content}}}</textarea>
-    <button class="btn btn-primary" type="submit">Submit</button>
-</form>
+<div class="container">
+    <form class="form" id="update-form" data-id="{{blog.id}}">
+        <div class="form-group">
+            <label for="title">Title</label><br>
+            <input class="form-input" type="text" id="blog-title" name="title" value="{{{blog.title}}}">
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label><br>
+            <textarea class="form-input" id="blog-content" name="content">{{{blog.content}}}</textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
+<script src="/js/update-blog.js"></script>

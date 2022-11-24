@@ -5,15 +5,17 @@ const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, async (req, res) => {
     try {
+        const blog = Blog.findAll({})
         const blogData = Blog.findAll({
             include: {
                 model: User,
                 attributes: ["username"]
             }
-        }, {
+        ,
             where: {
-                user_id: req.session.user_id,
+                user_id: req.session.user_id
             }
+
         })
         const blogs = (await blogData).map((blog) => blog.get({ plain: true }))
 

@@ -15,9 +15,13 @@ router.post('/', async (req, res) => {
 // Update a blog
 router.put('/:id', async (req, res) => {
     try{
-        const blogData = await Blog.update(req.body,{
+        const blogData = await Blog.update(
+            {
+                title: req.body.title,
+                content: req.body.content
+            },{
             where: {
-                id: req.params.id,
+                id: req.body.id,
                 user_id: req.session.user_id
             }
         })

@@ -10,7 +10,6 @@ router.get('/', async (req, res) => {
       }
     });
     const blogs = blogData.map((blog) => blog.get({ plain: true }));
-    console.log(blogs)
     res.render('homepage', { blogs, logged_in: req.session.logged_in })
   }
   catch (err) {
@@ -54,7 +53,6 @@ router.get("/blogpost/:id", async (req, res) => {
 
     // Serializing data
     const blog = blogData.get({plain: true})
-    console.log(blog)
 
     res.render('blog', { blog, logged_in: req.session_logged_in })
   }

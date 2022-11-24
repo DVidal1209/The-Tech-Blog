@@ -4,10 +4,10 @@ const { User } = require('../../models');
 // Create new user
 router.post('/', async (req, res) => {
   try {
-    const userData = await User.create(req.body);
-
+    let userData = await User.create(req.body);
+    const user = userData.get({plain: true})
     req.session.save(() => {
-      req.session.user_id = userData.id;
+      req.session.user_id = user.id;
       req.session.logged_in = true;
       res.status(200).json(userData);
     });
@@ -19,9 +19,8 @@ router.post('/', async (req, res) => {
 // User log in
 router.post('/login', async (req, res) => {
   try {
-    // console.log(req.body)
-    const userData = await User.findOne({ where: { username: req.body.username } });
-
+    let userData = await User.findOne({ where: { username: req.body.username } });
+  
     // Checks if username exists
     if (!userData) {
       res.status(400).json({ message: 'Incorrect username or password, please try again' });
@@ -35,10 +34,10 @@ router.post('/login', async (req, res) => {
       res.status(400).json({ message: 'Incorrect username or password, please try again' });
       return;
     }
-    
+    const user = userData.get({plain: true})
     // saves user session once log in is successful
     req.session.save(() => {
-      req.session.user_id = userData.id;
+      req.session.user_id = user.id;
       req.session.logged_in = true;
       res.status(200).json({ user: userData, message: 'You are now logged in!' });
     });
