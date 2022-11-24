@@ -16,10 +16,8 @@ const hbs = exphbs.create({ helpers });
 
 // Session information
 const sess = {
-  name: 'sessionID',
   secret: 's%3AJax789V2.Q1w2E3r4T5y6',
   cookie: {
-    secure: true,
     // Expires in 7 days
     maxAge: 604800,
   },

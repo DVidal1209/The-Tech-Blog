@@ -17,7 +17,7 @@ router.get('/', withAuth, async (req, res) => {
         })
         const blogs = (await blogData).map((blog) => blog.get({ plain: true }))
 
-        res.status(200).render('dashboard', { blogs });
+        res.status(200).render('dashboard', { blogs, logged_in: req.session.logged_in });
     }
     catch (err) {
         res.status(500).json(err)
@@ -45,7 +45,7 @@ router.get('/blog/:id', withAuth, async (req, res) => {
         const blog = blogData.get({ plain: true });
         console.log(blog);
 
-        res.status(200).render('userBlog', { blog });
+        res.status(200).render('userBlog', { blog, logged_in: req.session_logged_in });
     }
     catch (err) {
         res.status(500).json(err)

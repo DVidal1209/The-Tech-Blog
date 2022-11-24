@@ -3,7 +3,6 @@ const { Blog, User, Comment } = require('../models');
 
 router.get('/', async (req, res) => {
   try {
-    console.log("Hello world")
     const blogData = await Blog.findAll({
       include: {
         model: User,
@@ -11,7 +10,7 @@ router.get('/', async (req, res) => {
       }
     });
     const blogs = blogData.map((blog) => blog.get({ plain: true }));
-
+    console.log(blogs)
     res.render('homepage', { blogs, logged_in: req.session.logged_in })
   }
   catch (err) {
@@ -41,7 +40,11 @@ router.get("/blogpost/:id", async (req, res) => {
     // Get blog information including all comments
     const blogData = await Blog.findByPk(id, {
       include: {
-        model: Comment
+        model: Comment,
+        include: {
+          model: User,
+          attributes: ['username']
+        }
       }
     })
 
@@ -51,9 +54,9 @@ router.get("/blogpost/:id", async (req, res) => {
 
     // Serializing data
     const blog = blogData.get({plain: true})
+    console.log(blog)
 
-    console.log(blog);
-    res.render('blog', { blog, logged_in: req.session.logged_in })
+    res.render('blog', { blog, logged_in: req.session_logged_in })
   }
   catch (err) {
     res.status(500).json(err);

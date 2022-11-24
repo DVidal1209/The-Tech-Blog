@@ -19,6 +19,7 @@ router.post('/', async (req, res) => {
 // User log in
 router.post('/login', async (req, res) => {
   try {
+    // console.log(req.body)
     const userData = await User.findOne({ where: { username: req.body.username } });
 
     // Checks if username exists
@@ -34,7 +35,7 @@ router.post('/login', async (req, res) => {
       res.status(400).json({ message: 'Incorrect username or password, please try again' });
       return;
     }
-
+    // console.log(userData)
     // saves user session once log in is successful
     req.session.save(() => {
       req.session.user_id = userData.id;

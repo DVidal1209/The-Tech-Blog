@@ -1,0 +1,15 @@
+<div class ="title">
+    {{{blog.title}}}
+</div>
+<div class="content">
+    {{{blog.content}}}
+</div>
+
+{{#if blog.comments.lenth}}
+<div class="comments">
+    <p>
+        <h4>Comments:</h4>
+        {{{blog.comments}}}
+    </p>
+</div>
+{{/if}}
