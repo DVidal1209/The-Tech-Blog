@@ -40,6 +40,7 @@ router.get("/blogpost/:id", async (req, res) => {
     const blogData = await Blog.findByPk(id, {
       include: {
         model: Comment,
+        attributes: ['comment_body'],
         include: {
           model: User,
           attributes: ['username']
@@ -53,8 +54,8 @@ router.get("/blogpost/:id", async (req, res) => {
 
     // Serializing data
     const blog = blogData.get({plain: true})
-
-    res.render('blog', { blog, logged_in: req.session_logged_in })
+    console.log(blog.comments.user.username);
+    res.render('blog', { blog, logged_in: req.session.logged_in })
   }
   catch (err) {
     res.status(500).json(err);

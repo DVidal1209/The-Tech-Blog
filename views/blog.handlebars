@@ -1,17 +1,37 @@
-<div class="container">
-    <div class ="title">
+<div class="container" id="blog" data-id="{{{blog.id}}}">
+    <div class="title">
         {{{blog.title}}}
     </div>
     <div class="content">
         {{{blog.content}}}
     </div>
-</div>
 
-{{#if blog.comments.lenth}}
-<div class="comments">
-    <p>
+    {{#if blog.comments}}
+    {{#each blog.comments as |comment|}}
+    <div class="comments">
         <h4>Comments:</h4>
-        {{{blog.comments}}}
-    </p>
+        <div class="row">
+
+            <div class="col-8">
+                {{{comment.comment_body}}}
+            </div>
+            <div class="col-4">
+                commentor: {{{comment.user.username}}}
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{/if}}
+
+    {{#if logged_in}}
+    <form class="form" id="make-comment">
+        <div class="form-group">
+            <textarea class="form-input" type="text" id="comment"></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" id="submit">Add Comment</button>
+        </div>
+    </form>
+    <script src="/js/make-comment.js"></script>
+    {{/if}}
 </div>
-{{/if}}
