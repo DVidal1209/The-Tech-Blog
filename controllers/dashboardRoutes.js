@@ -52,4 +52,12 @@ router.get('/blog/:id', withAuth, async (req, res) => {
     }
 })
 
+router.get('/newblog', async (req, res) => {
+    if (req.session.logged_in){
+        res.render('newBlog', {logged_in: req.session.logged_in})
+    } else {
+        res.redirect('/login')
+    }
+})
+
 module.exports = router;
