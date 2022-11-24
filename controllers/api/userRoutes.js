@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
       res.status(400).json({ message: 'Incorrect username or password, please try again' });
       return;
     }
-    // console.log(userData)
+    
     // saves user session once log in is successful
     req.session.save(() => {
       req.session.user_id = userData.id;
