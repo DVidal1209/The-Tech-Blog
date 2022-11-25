@@ -51,10 +51,8 @@ router.get("/blogpost/:id", async (req, res) => {
     if (!blogData) {
       res.status(404).json(message = `No blog found under id: ${id}`)
     }
-
     // Serializing data
     const blog = blogData.get({plain: true})
-    console.log(blog.comments.user.username);
     res.render('blog', { blog, logged_in: req.session.logged_in })
   }
   catch (err) {
