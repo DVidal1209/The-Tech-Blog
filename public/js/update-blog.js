@@ -17,7 +17,7 @@ const updateFormHandler = async (event) => {
         document.location.replace('/dashboard');
       } else {
         document.location.replace('/dashboard');
-        alert('Failed to create blog');
+        alert('Failed to update blog');
       }
     }
   };

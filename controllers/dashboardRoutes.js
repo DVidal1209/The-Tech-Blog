@@ -5,7 +5,6 @@ const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, async (req, res) => {
     try {
-        const blog = Blog.findAll({})
         const blogData = Blog.findAll({
             include: {
                 model: User,
@@ -29,7 +28,6 @@ router.get('/', withAuth, async (req, res) => {
 router.get('/blog/:id', withAuth, async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        console.log("Session ID", req.session.user_id)
         const blogData = await Blog.findByPk(id,{
             include:{
                 model: Comment,
