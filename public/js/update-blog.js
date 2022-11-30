@@ -23,3 +23,4 @@ const updateFormHandler = async (event) => {
   };
 
   document.querySelector('#update-form').addEventListener('submit', updateFormHandler);
+  
